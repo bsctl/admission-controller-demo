@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webhook-server
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhook-server
+  strategy:
+  template:
+    metadata:
+      labels:
+        app: webhook-server
+    spec:
+      containers:
+      - name: webhook
+        image: webhook:0.0.1
+        command:
+        - webhook
+        - --debug
+        ports:
+        - containerPort: 8443
+          name: webhook-api
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /opt/certs
+          name: certs
+          readOnly: true
+        - mountPath: /opt/config
+          name: rules
+          readOnly: true
+      volumes:
+      - name: certs
+        secret:
+          secretName: webhook-server
+      - name: rules
+        configMap:
+          name: webhook-server

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webhook-server
+  namespace: kube-system
+data:
+  rules.json: |
+    {
+      "defaultselector": "fruit=apple",
+      "rules": {
+        "development":  "arch=intel",
+        "production":   "app=portals",
+        "staging":      ""
+      }
+    }
