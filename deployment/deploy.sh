@@ -11,8 +11,11 @@ if [ ! -x "$(command -v openssl)" ]; then
     exit 1
 fi
 
-service=webhook-server
-namespace=kube-system
+service="webhook-server"
+namespace="default"
+repository=""
+image="webhook"
+version="v0.0.1"
 
 tmpdir=$(mktemp -d)
 echo "creating certs in tmpdir ${tmpdir} "
@@ -141,7 +144,7 @@ spec:
     spec:
       containers:
       - name: webhook
-        image: webhook:0.0.1
+        image: ${repository}${image}:${version}
         command:
         - webhook
         - --debug
@@ -179,11 +182,10 @@ metadata:
 data:
   rules.json: |
     {
-      "defaultselector": "fruit=apple",
+      "defaultselector": "fruit=banana",
       "rules": {
-        "development":  "arch=intel",
-        "production":   "app=portals",
-        "staging":      ""
+      "development":  "env=development",
+      "production":   "env=production"
       }
     }
 EOF

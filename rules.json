@@ -1,8 +1,0 @@
-{
-  "defaultselector": "arch=banana,fruit=apple",
-  "rules": {
-    "development": "arch=intel64,datacenter=local",
-    "production": "arch=powerPC,customer=huge,app=portals",
-    "staging": "arch=power,app=portals"
-  }
-}

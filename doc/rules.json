@@ -1,0 +1,7 @@
+{
+  "defaultselector": "fruit=banana",
+  "rules": {
+  "development":  "env=development",
+  "production":   "env=production"
+  }
+}

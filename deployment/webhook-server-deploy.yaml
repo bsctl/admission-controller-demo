@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: webhook-server
-  namespace: kube-system
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: webhook
-        image: webhook:0.0.1
+        image: webhook:v0.0.1
         command:
         - webhook
         - --debug
